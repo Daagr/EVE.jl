@@ -7,4 +7,6 @@ include("images.jl")
 include("api.jl")
 include("crest.jl")
 
+export CrestTree
+
 end # module
