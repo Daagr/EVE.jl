@@ -9,35 +9,35 @@ end
 
 defaultcache = CrestCache(Dict())
 
-immutable CrestTree
+immutable Crest
     url
     data::Dict
-    CrestTree(url=DEFAULT_CREST_SERVER, data=ecget(url)) = new(url, data)
+    Crest(url=DEFAULT_CREST_SERVER, data=ecget(url)) = new(url, data)
 end
 
-Base.show(io::IO, tree::CrestTree) = print(io, "CrestTree"*("name" in keys(tree.data) ? ("("*tree.data["name"]*")") : "")*"{"*join(keys(tree.data), ", ")*"}")
+Base.show(io::IO, tree::Crest) = print(io, "Crest"*("name" in keys(tree.data) ? ("("*tree.data["name"]*")") : "")*"{"*join(keys(tree.data), ", ")*"}")
 
-Base.getindex(::Type{CrestTree}, key) = CrestTree()[key]
+Base.getindex(::Type{Crest}, key) = Crest()[key]
 
-function Base.getindex(tree::CrestTree, key)
+function Base.getindex(tree::Crest, key)
     if key in keys(tree.data)
         if isa(tree.data[key], Dict)
             if "href" in keys(tree.data[key])
-                n = CrestTree(tree.data[key]["href"])
+                n = Crest(tree.data[key]["href"])
                 return n
             else
-                return CrestTree("", tree.data[key])
+                return Crest("", tree.data[key])
             end
         end
         if isa(tree.data[key], AbstractArray) # TODO: if elems have name, give a view
-            return [CrestTree("", i) for i in tree.data[key]]
+            return [Crest("", i) for i in tree.data[key]]
         end
         return tree.data[key]
     end
     throw(KeyError(key))
 end
 
-Base.call(tree::CrestTree) = "href" in keys(tree.data) ? CrestTree(tree.data["href"]) : tree
+Base.call(tree::Crest) = "href" in keys(tree.data) ? Crest(tree.data["href"]) : tree
 
 
 function ecget(href, cache::CrestCache=defaultcache)
@@ -52,6 +52,7 @@ function ecget(href, cache::CrestCache=defaultcache)
     
     data = eget(href)
     d = JSON.parse(data)
+    # TODO: better caching
     cache.cache[href] = (now() + Dates.Minute(5), d)
     d
 end

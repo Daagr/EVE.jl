@@ -8,6 +8,7 @@ Julia utility library for all things EVE Online.
 
 - [ ] XML API
 - [x] Crest
+- [ ] SDE
 - [ ] zKillboard
 - [ ] Eve Who
 - [ ] High level map operations
@@ -15,8 +16,8 @@ Julia utility library for all things EVE Online.
 
 ## Crest
 
-```
+```julia
 using EVE
 
-CrestTree["userCounts"]["eve"]
+Crest["userCounts"]["eve"]
 ```
