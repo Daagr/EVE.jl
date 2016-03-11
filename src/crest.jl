@@ -53,6 +53,7 @@ function ecget(href, cache::CrestCache=defaultcache)
     data = eget(href)
     d = JSON.parse(data)
     # TODO: better caching
+    # TODO: utc times
     cache.cache[href] = (now() + Dates.Minute(5), d)
     d
 end

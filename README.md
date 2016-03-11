@@ -8,6 +8,7 @@ Julia utility library for all things EVE Online.
 
 - [ ] XML API
 - [x] Crest
+- [ ] Authed Crest
 - [ ] SDE
 - [ ] zKillboard
 - [ ] Eve Who
@@ -20,4 +21,13 @@ Julia utility library for all things EVE Online.
 using EVE
 
 Crest["userCounts"]["eve"]
+```
+
+## XML API
+
+```julia
+c = EVE.getCharacters(key, vCode)
+# something something work in progress...
+# return type and name will probably change
+EVE.balance(c[1])
 ```

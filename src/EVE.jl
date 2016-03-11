@@ -1,12 +1,12 @@
 module EVE
 
-const EVE_VERSION = v"0.0.1"
+const EVE_JL_VERSION = v"0.0.1"
 
 include("tools.jl")
 include("images.jl")
 include("api.jl")
 include("crest.jl")
 
-export CrestTree
+export Crest
 
 end # module
